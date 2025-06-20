@@ -8,7 +8,7 @@ trained_weights = "runs/detect/train/weights/best.pt"
 # Check if trained weights exist
 if not os.path.exists(trained_weights):
     print("Trained model not found. Running training script...")
-    subprocess.run(["python3", "train.py"], check=True)
+    subprocess.run(["python3", "scripts/object_detection/train.py"], check=True)
     print("Training complete.")
 else:
     print("Trained model found. Proceeding to prediction.")
