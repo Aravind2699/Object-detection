@@ -1,8 +1,20 @@
 from ultralytics import RTDETR
 import os
+import subprocess
 
-# Load a COCO-pretrained RT-DETR-l model
-model = RTDETR("rtdetr-l.pt")
+# Path to trained weights
+trained_weights = "runs/detect/train/weights/best.pt"
+
+# Check if trained weights exist
+if not os.path.exists(trained_weights):
+    print("Trained model not found. Running training script...")
+    subprocess.run(["python3", "train.py"], check=True)
+    print("Training complete.")
+else:
+    print("Trained model found. Proceeding to prediction.")
+
+# Load the trained model
+model = RTDETR(trained_weights if os.path.exists(trained_weights) else "rtdetr-l.pt")
 
 # Input file path (change as needed)
 input_path = "ML_product/data/raw/pumpkin-harvesting-field-different-types-pumpkin.jpg"  # or .mp4
